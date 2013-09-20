@@ -1,7 +1,5 @@
 package main;
 
-import utils.Pair;
-
 public class Matrix {
 	protected int _rows;
 	protected int _cols;
@@ -26,6 +24,28 @@ public class Matrix {
 	
 	public double get(int row, int col){
 		return _m[row][col];
+	}
+	
+	public int rows(){
+		return _rows;
+	}
+	
+	public int cols(){
+		return _cols;
+	}
+	
+	//TODO implement. Consider making a column and row vector class and implement dot product there first
+	// Then just have a get row and get column method in matrix
+	public static Matrix mult(Matrix left, Matrix right){
+		if (left.cols() != right.rows()){
+			//TODO throw error
+			System.out.println("THROW AN ERROR NOW!");
+			return null;
+		} else{
+			Matrix m = new Matrix(left.rows(), right.cols());
+			
+			return m;
+		}
 	}
 	
 	@Override

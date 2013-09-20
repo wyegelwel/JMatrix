@@ -27,6 +27,7 @@ public class LowerTriangularMatrix extends SquareMatrix {
 	 * Constructs a LowerTriangularMatrix using SquareMatrix m as a template.  
 	 * @param identity
 	 */
+	//TODO make this a a static method
 	public LowerTriangularMatrix(SquareMatrix m) {
 		super(m._n);
 		_m = lowerCopy(m._m, _n);
@@ -52,7 +53,7 @@ public class LowerTriangularMatrix extends SquareMatrix {
 	
 	public static void main(String[] args){
 		double[][] d = new double[][]{{ 1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-		LowerTriangularMatrix u = new LowerTriangularMatrix(3, 3, d);
+		LowerTriangularMatrix u = new LowerTriangularMatrix(3, d);
 		System.out.println(u);
 	}
 }

@@ -27,6 +27,7 @@ public class UpperTriangularMatrix extends SquareMatrix {
 	 * Constructs a UpperTriangularMatrix using SquareMatrix m as a template.  
 	 * @param identity
 	 */
+	//TODO make this a static method
 	public UpperTriangularMatrix(SquareMatrix m) {
 		super(m._n);
 		_m = upperCopy(m._m, _n);
@@ -51,7 +52,7 @@ public class UpperTriangularMatrix extends SquareMatrix {
 	
 	public static void main(String[] args){
 		double[][] d = new double[][]{{ 111, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-		UpperTriangularMatrix u = new UpperTriangularMatrix(3, 3, d);
+		UpperTriangularMatrix u = new UpperTriangularMatrix(3, d);
 		System.out.println(u);
 	}
 }
