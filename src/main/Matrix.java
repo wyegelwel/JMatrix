@@ -53,9 +53,11 @@ public class Matrix {
 	 */
 	public static Matrix mult(Matrix left, Matrix right){
 		if (left.cols() != right.rows()){
-			//TODO throw error
-			System.out.println("THROW AN ERROR NOW!");
-			return null;
+			throw new IllegalArgumentException("The columns of the left matrix " +
+												"must match the columns of the right" +
+												" matrix. Left dimensions: (" + left.rows()
+												+ ", " + left.cols() + ") right dimensions: ("
+												+ right.rows() + ", " + right.cols() + ")");
 		} else{
 			Matrix m = new Matrix(left.rows(), right.cols());
 			for (int row = 0; row < left.rows(); row++){
