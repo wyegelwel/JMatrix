@@ -2,18 +2,6 @@ package main;
 
 public class UpperTriangularMatrix extends SquareMatrix {
 	
-	@Deprecated
-	public UpperTriangularMatrix(int rows, int cols) {
-		super(rows, cols);
-		
-	}
-
-	@Deprecated
-	public UpperTriangularMatrix(int rows, int cols, double[][] d) {
-		super(rows, cols);
-		_m = upperCopy(d, _n);
-	}
-	
 	public UpperTriangularMatrix(int n){
 		super(n);
 	}

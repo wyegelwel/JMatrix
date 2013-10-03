@@ -1,19 +1,6 @@
 package main;
 
 public class LowerTriangularMatrix extends SquareMatrix {
-
-	@Deprecated
-	public LowerTriangularMatrix(int rows, int cols) {
-		super(rows, cols);
-		
-	}
-
-	@Deprecated
-	public LowerTriangularMatrix(int rows, int cols, double[][] d) {
-		super(rows, cols);
-		_m = lowerCopy(d, _n);
-	}
-	
 	public LowerTriangularMatrix(int n){
 		super(n);
 	}
