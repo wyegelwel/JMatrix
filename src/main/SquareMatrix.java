@@ -29,12 +29,19 @@ public class SquareMatrix extends Matrix {
 		return m;
 	}
 	
-	public Pair<? super LowerTriangularMatrix, ? super UpperTriangularMatrix> LU_decomposition(){
+	/**
+	 * Performs Gaussian Elimination without pivoting. Note that this algorithm is generally UNSTABLE 
+	 * @return
+	 */
+	public Pair<LowerTriangularMatrix, UpperTriangularMatrix> LU_decomposition(){
 		LowerTriangularMatrix L = new LowerTriangularMatrix(SquareMatrix.identity(_n));
 		SquareMatrix U = SquareMatrix.copy(this);
+		//for each pivot
 		for (int i = 0; i < _n-1; i++){
+			//for each row
 			for (int k = i+1; k < _n; k++){
-				L._m[k][i] = U.get(k, i)/U.get(i,i);
+				L._m[k][i] = U.get(k, i)/U.get(i,i); // compute multiplier
+				//perform row op
 				for (int j = i; j < _n; j++){
 					U._m[k][j] = U.get(k, j) - L.get(k, i)*U.get(i, j);
 				}
