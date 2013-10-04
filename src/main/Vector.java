@@ -1,5 +1,7 @@
 package main;
 
+import com.sun.org.apache.bcel.internal.generic.L2D;
+
 public class Vector extends Matrix {
 	
 	private int _n;
@@ -124,4 +126,26 @@ public class Vector extends Matrix {
 		}
 		return sum;	
 	}
+	
+	/**
+	 * Computes the L2 norm of the vector
+	 * @return
+	 */
+	public double norm(){
+		return Math.sqrt(this.dot(this));
+	}
+	
+	/**
+	 * Returns a new vector with its elements normalized
+	 * @return
+	 */
+	public Vector normalize(){
+		Vector v = new Vector(rows(), cols());
+		double norm = norm();
+		for (int i = 0; i < v.length(); i++){
+			v.set(i, get(i)/norm);
+		}
+		return v;
+	}
+	
 }

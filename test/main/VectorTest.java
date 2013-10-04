@@ -27,51 +27,26 @@ public class VectorTest {
 	}
 
 	@Test
-	public void testRowVectorInt() {
-		int cols = (int) Math.random()*100+1;
-		Vector v = Vector.rowVector(cols);
-		assertTrue(v.rows() == 1);
-		assertTrue(v.cols() == cols);
+	public void testNormZeros(){
+		double[] d = new double[]{0, 0, 0};
+		Vector v = Vector.columnVector(d, 3);
+		assertEquals(0, v.norm(), 1e-10);
 	}
-
+	
 	@Test
-	public void testRowVectorMatrixInt() {
-		fail("Not yet implemented");
+	public void testNormPositives(){
+		double[] d = new double[]{2, 2, 2, 2, 3};
+		Vector v = Vector.columnVector(d, 5);
+		assertEquals(5, v.norm(), 1e-10);
 	}
-
+	
 	@Test
-	public void testColumnVectorMatrixInt() {
-		int rows = (int) Math.random()*100+1;
-		Vector v = Vector.columnVector(rows);
-		assertTrue(v.rows() == rows);
-		assertTrue(v.cols() == 1);
+	public void testNormMixed(){
+		double[] d = new double[]{2, -2, 2, -2, -3};
+		Vector v = Vector.columnVector(d, 5);
+		assertEquals(5, v.norm(), 1e-10);
 	}
-
-	@Test
-	public void testColumnVectorInt() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testLength() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testIsRowVector() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testIsColumnVector() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetInt() {
-		fail("Not yet implemented");
-	}
-
+	
 	@Test
 	public void testDotTrivial() {
 		double[] d1 = new double[]{1, 2, 3};
