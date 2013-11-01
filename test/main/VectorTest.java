@@ -64,5 +64,26 @@ public class VectorTest {
 		Vector v2 = Vector.columnVector(d2, 3);
 		assertEquals(10, v1.dot(v2), 1e-10);
 	}
+	
+	@Test
+	public void testRangeTrivial(){
+		double[] d = new double[]{1, 2, 3, 4};
+		Vector v = Vector.range(1, 4, 1);
+		assertArrayEquals(d, v.getData(), 1e-10);
+	}
+	
+	@Test
+	public void testRangeLargeToSmall(){
+		double[] d = new double[]{5.5, 4.5, 3.5, 2.5, 1.5, .5, -.5, -1.5};
+		Vector v = Vector.range(5.5, -1.5, -1);
+		assertArrayEquals(d, v.getData(), 1e-10);
+	}
+	
+	@Test
+	public void testRangeEndMissed(){
+		double[] d = new double[]{0, .7, 1.4};
+		Vector v = Vector.range(0, 2, .7);
+		assertArrayEquals(d, v.getData(), 1e-10);
+	}
 
 }

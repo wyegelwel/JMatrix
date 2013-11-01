@@ -1,7 +1,5 @@
 package main;
 
-import com.sun.org.apache.bcel.internal.generic.L2D;
-
 public class Vector extends Matrix {
 	
 	private int _n;
@@ -56,6 +54,41 @@ public class Vector extends Matrix {
 	}
 	
 	/**
+	 * Returns a Vector, v, filled with values such that v[0] = start and each 
+	 * following value is incremented by step. The last value in v equals the
+	 * closest value to end that doesn't exceed end. Note that the last value 
+	 * can equal end.
+	 * @param start
+	 * @param end
+	 * @param step
+	 * @return
+	 */
+	public static Vector range(double start, double end, double step){
+		//+1 so that the full interval is included
+		int size = (int) ((end-start)/step) + 1; 
+		Vector v = Vector.rowVector(size);
+		
+		for (int i = 0; i < size; i++){
+			v.set(i, start + i*step);
+		}
+		
+		return v;
+	}
+	
+	/**
+	 * Returns a copy of the data stored in the vector
+	 * @return
+	 */
+	public double[] getData(){
+		double[] d = new double[_n];
+		for (int i = 0; i < _n; i++){
+			d[i] = get(i);
+		}
+		
+		return d;
+	}
+	
+	/**
 	 * Convenience method for setting values in the vector to avoid indexing issues
 	 * @param i
 	 * @param value
@@ -77,8 +110,8 @@ public class Vector extends Matrix {
 	}
 	
 	/**
-	 * Returns whether the vector is a row vector. Note if vector has length 1, 
-	 * it is neither a row or column vector
+	 * Returns whether the vector is a row vector. Note if vector has 
+	 * length 1, it is neither a row or column vector
 	 * @return
 	 */
 	public boolean isRowVector(){
@@ -86,8 +119,8 @@ public class Vector extends Matrix {
 	}
 	
 	/**
-	 * Returns whether the vector is a column vector. Note if vector has length 1, 
-	 * it is neither a row or column vector
+	 * Returns whether the vector is a column vector. Note if vector has 
+	 * length 1, it is neither a row or column vector
 	 * @return
 	 */
 	public boolean isColumnVector(){
@@ -126,6 +159,9 @@ public class Vector extends Matrix {
 		}
 		return sum;	
 	}
+	
+	
+	
 	
 	/**
 	 * Computes the L2 norm of the vector
