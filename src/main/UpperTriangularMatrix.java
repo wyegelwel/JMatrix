@@ -15,7 +15,6 @@ public class UpperTriangularMatrix extends SquareMatrix {
 	 * Constructs a UpperTriangularMatrix using SquareMatrix m as a template.  
 	 * @param identity
 	 */
-	//TODO make this a static method
 	public UpperTriangularMatrix(SquareMatrix m) {
 		super(m._n);
 		_m = upperCopy(m._m, _n);

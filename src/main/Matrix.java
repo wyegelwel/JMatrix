@@ -1,6 +1,7 @@
 package main;
 
 //TODO correct LowerTriangularMatrix and UpperTriangularMatrix so that they don't need to be square
+//TODO Consider having matrix constructors simply take the double array from other matrix because they are meant to be immutable anyway
 public class Matrix {
 	protected int _rows;
 	protected int _cols;

@@ -13,8 +13,8 @@ public class SquareMatrixTest {
 	public void testLU_decomposition() {
 		double[][] d1 = new double[][]{{ random(), random(), random()}, {random(), random(), random()}, {random(), random(), random()}};
 		SquareMatrix sm = new SquareMatrix(3, d1);
-		 Pair<LowerTriangularMatrix, UpperTriangularMatrix>  LU = sm.LU_decomposition();
-		 assertTrue(sm.equals(Matrix.mult(LU.l, LU.r)));
+		LUDecomposition LU = new LUDecomposition(sm);
+		 assertTrue(Matrix.mult(LU.getP(), LU.getA()).equals(Matrix.mult(LU.getL(), LU.getU())));
 	}
 
 }

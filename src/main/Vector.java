@@ -66,7 +66,7 @@ public class Vector extends Matrix {
 	public static Vector range(double start, double end, double step){
 		//+1 so that the full interval is included
 		int size = (int) ((end-start)/step) + 1; 
-		Vector v = Vector.rowVector(size);
+		Vector v = Vector.columnVector(size);
 		
 		for (int i = 0; i < size; i++){
 			v.set(i, start + i*step);
@@ -159,8 +159,6 @@ public class Vector extends Matrix {
 		}
 		return sum;	
 	}
-	
-	
 	
 	
 	/**
