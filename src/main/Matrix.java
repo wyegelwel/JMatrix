@@ -2,6 +2,7 @@ package main;
 
 //TODO correct LowerTriangularMatrix and UpperTriangularMatrix so that they don't need to be square
 //TODO Consider having matrix constructors simply take the double array from other matrix because they are meant to be immutable anyway
+//TODO Make Matrix final and have enforcers of different matrix types
 public class Matrix {
 	protected int _rows;
 	protected int _cols;
@@ -26,6 +27,55 @@ public class Matrix {
 		_m = copy(m._m, _rows, _cols);
 	}
 	
+	/**
+	 * Multiplies two matrices using matrix multiplication (NOT ELEMENTWISE!)
+	 * @param left
+	 * @param right
+	 * @throws IllegalArgumentException if columns of left matrix don't match
+	 * rows of the right matrix
+	 * @return
+	 */
+	public static Matrix mult(Matrix left, Matrix right){
+		if (left.cols() != right.rows()){
+			throw new IllegalArgumentException("The columns of the left matrix " +
+												"must match the columns of the right" +
+												" matrix. Left dimensions: " + 
+												left.getDimensionString()+ " right" +
+												" dimensions: " +right.getDimensionString());
+		} else{
+			Matrix m = new Matrix(left.rows(), right.cols());
+			for (int row = 0; row < left.rows(); row++){
+				for (int col = 0; col < right.cols(); col++){
+					m._m[row][col] = left.getRow(row).dot(right.getColumn(col));
+				}
+			}
+			return m;
+		}
+	}
+	
+	/**
+	 * Returns a new matrix resulting from the element wise addition of 'this' and m
+	 * @param m
+	 * @throws IllegalArgumentException if matrix dimensions don't match
+	 * @return
+	 */
+	public Matrix add(Matrix m){
+		if (!dimensionsMatch(m)){
+			throw new IllegalArgumentException("Matrix dimensions must match. " + 
+												"'this' dimensions: " + getDimensionString()
+												+" param dimensions: " + m.getDimensionString());
+		}
+		Matrix toReturn = new Matrix(this);
+		for (int row = 0; row < rows(); row++){
+			for (int col = 0; col < cols(); col++){
+				toReturn._m[row][col] = get(row,col) + m.get(row,col);
+			}
+		}
+		
+		return toReturn;
+	}
+	
+	
 	public double get(int row, int col){
 		return _m[row][col];
 	}
@@ -46,30 +96,6 @@ public class Matrix {
 		return _cols;
 	}
 	
-	/**
-	 * Multiplies two matrices using matrix multiplication (NOT ELEMENTWISE!)
-	 * @param left
-	 * @param right
-	 * @return
-	 */
-	public static Matrix mult(Matrix left, Matrix right){
-		if (left.cols() != right.rows()){
-			throw new IllegalArgumentException("The columns of the left matrix " +
-												"must match the columns of the right" +
-												" matrix. Left dimensions: (" + left.rows()
-												+ ", " + left.cols() + ") right dimensions: ("
-												+ right.rows() + ", " + right.cols() + ")");
-		} else{
-			Matrix m = new Matrix(left.rows(), right.cols());
-			for (int row = 0; row < left.rows(); row++){
-				for (int col = 0; col < right.cols(); col++){
-					m._m[row][col] = left.getRow(row).dot(right.getColumn(col));
-				}
-			}
-			return m;
-		}
-	}
-	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -82,6 +108,10 @@ public class Matrix {
 		return sb.toString();
 	}
 	
+	public String getDimensionString(){
+		return "(" + rows() + ", " + cols() + ")";
+	}
+	
 	protected double[][] copy(double[][] src, int rows, int cols){
 		double[][] dest = new double[rows][cols];
 		for (int row = 0; row < rows; row++){
@@ -92,6 +122,10 @@ public class Matrix {
 		return dest;
 	}
 	
+	public boolean dimensionsMatch(Matrix m){
+		return m.rows() == rows() && m.cols() == cols();
+	}
+	
 	/**
 	 * Equality check for Matrix. Note: that it can be expensive as it compares 
 	 * every element in both matrices for equality
@@ -100,9 +134,11 @@ public class Matrix {
 	public boolean equals(Object obj) {
 		if (obj instanceof Matrix){
 			Matrix m = (Matrix) obj;
-			if (m.rows() != rows() || m.cols() != cols()){
+			//Check if dim
+			if (!dimensionsMatch(m)){
 				return false;
 			}
+			
 			for (int row = 0; row < rows(); row++){
 				for (int col = 0; col < cols(); col++){
 					if (Math.abs(m.get(row, col) - get(row, col)) > EQUALITY_EPSILON){
