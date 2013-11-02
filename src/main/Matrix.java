@@ -2,7 +2,7 @@ package main;
 
 //TODO correct LowerTriangularMatrix and UpperTriangularMatrix so that they don't need to be square
 //TODO Consider having matrix constructors simply take the double array from other matrix because they are meant to be immutable anyway
-//TODO Make Matrix final and have enforcers of different matrix types
+//TODO Have enforcers of different matrix types
 public class Matrix {
 	protected int _rows;
 	protected int _cols;
@@ -10,25 +10,15 @@ public class Matrix {
 	
 	public static double EQUALITY_EPSILON = 1e-10;
 	
-	public Matrix(int rows, int cols){
+	protected Matrix(int rows, int cols){
 		_rows = rows;
 		_cols = cols;
 		_m = new double[rows][cols];
 	}
-	
-	public Matrix(int rows, int cols, double[][] d){
-		this(rows, cols);
-		_m = copy(d, rows, cols);
-	}
-	
-	public Matrix(Matrix m){
-		_rows = m._rows;
-		_cols = m._cols;
-		_m = copy(m._m, _rows, _cols);
-	}
-	
+			
 	/**
-	 * Multiplies two matrices using matrix multiplication (NOT ELEMENTWISE!)
+	 * Returns a new matrix resulting from the multiplications of left and right
+	 * Note: This is not element-wise
 	 * @param left
 	 * @param right
 	 * @throws IllegalArgumentException if columns of left matrix don't match
@@ -43,13 +33,13 @@ public class Matrix {
 												left.getDimensionString()+ " right" +
 												" dimensions: " +right.getDimensionString());
 		} else{
-			Matrix m = new Matrix(left.rows(), right.cols());
+			MatrixBuilder m = new MatrixBuilder(left.rows(), right.cols());
 			for (int row = 0; row < left.rows(); row++){
 				for (int col = 0; col < right.cols(); col++){
-					m._m[row][col] = left.getRow(row).dot(right.getColumn(col));
+					m.set(left.getRow(row).dot(right.getColumn(col)), row, col);
 				}
 			}
-			return m;
+			return m.build();
 		}
 	}
 	
@@ -65,14 +55,14 @@ public class Matrix {
 												"'this' dimensions: " + getDimensionString()
 												+" param dimensions: " + m.getDimensionString());
 		}
-		Matrix toReturn = new Matrix(this);
+		MatrixBuilder toReturn = new MatrixBuilder(m.rows(), m.cols());
 		for (int row = 0; row < rows(); row++){
 			for (int col = 0; col < cols(); col++){
-				toReturn._m[row][col] = get(row,col) + m.get(row,col);
+				toReturn.set(get(row,col) + m.get(row,col), row, col);
 			}
 		}
 		
-		return toReturn;
+		return toReturn.build();
 	}
 	
 	
@@ -112,15 +102,7 @@ public class Matrix {
 		return "(" + rows() + ", " + cols() + ")";
 	}
 	
-	protected double[][] copy(double[][] src, int rows, int cols){
-		double[][] dest = new double[rows][cols];
-		for (int row = 0; row < rows; row++){
-			for (int col = 0; col < cols; col++){
-				dest[row][col] = src[row][col];
-			}
-		}
-		return dest;
-	}
+	
 	
 	public boolean dimensionsMatch(Matrix m){
 		return m.rows() == rows() && m.cols() == cols();
