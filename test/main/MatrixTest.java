@@ -1,6 +1,9 @@
 package main;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -44,5 +47,28 @@ public class MatrixTest {
 		Matrix left = MatrixFactory.create(2, 3, d2);
 		Matrix m = Matrix.mult(left, right);
 		assertTrue(m.equals(MatrixFactory.create(2,3,expected)));
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testUpperTriangularEnforcer(){
+		List<MatrixEnforcer> enforcers = new ArrayList<MatrixEnforcer>(); 
+		enforcers.add(new UpperTriangularEnforcer());
+		int rows = 5;
+		int cols = 5;
+		MatrixBuilder b = new MatrixBuilder(rows, cols, enforcers);
+		for (int row = 0; row < rows; rows++){
+			for (int col = 0; col < cols; col++){
+				b.set(Math.random(), row, col);
+			}
+		}
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testSquareEnforcer(){
+		List<MatrixEnforcer> enforcers = new ArrayList<MatrixEnforcer>(); 
+		enforcers.add(new SquareEnforcer());
+		int rows = 5;
+		int cols = 6;
+		MatrixBuilder b = new MatrixBuilder(rows, cols, enforcers);
 	}
 }

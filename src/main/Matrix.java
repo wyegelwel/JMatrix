@@ -2,7 +2,7 @@ package main;
 
 //TODO correct LowerTriangularMatrix and UpperTriangularMatrix so that they don't need to be square
 //TODO Consider having matrix constructors simply take the double array from other matrix because they are meant to be immutable anyway
-//TODO Have enforcers of different matrix types
+
 public class Matrix {
 	protected int _rows;
 	protected int _cols;
@@ -30,8 +30,8 @@ public class Matrix {
 			throw new IllegalArgumentException("The columns of the left matrix " +
 												"must match the columns of the right" +
 												" matrix. Left dimensions: " + 
-												left.getDimensionString()+ " right" +
-												" dimensions: " +right.getDimensionString());
+												left.getSizeString()+ " right" +
+												" dimensions: " +right.getSizeString());
 		} else{
 			MatrixBuilder m = new MatrixBuilder(left.rows(), right.cols());
 			for (int row = 0; row < left.rows(); row++){
@@ -52,8 +52,8 @@ public class Matrix {
 	public Matrix add(Matrix m){
 		if (!dimensionsMatch(m)){
 			throw new IllegalArgumentException("Matrix dimensions must match. " + 
-												"'this' dimensions: " + getDimensionString()
-												+" param dimensions: " + m.getDimensionString());
+												"'this' dimensions: " + getSizeString()
+												+" param dimensions: " + m.getSizeString());
 		}
 		MatrixBuilder toReturn = new MatrixBuilder(m.rows(), m.cols());
 		for (int row = 0; row < rows(); row++){
@@ -98,11 +98,9 @@ public class Matrix {
 		return sb.toString();
 	}
 	
-	public String getDimensionString(){
+	public String getSizeString(){
 		return "(" + rows() + ", " + cols() + ")";
 	}
-	
-	
 	
 	public boolean dimensionsMatch(Matrix m){
 		return m.rows() == rows() && m.cols() == cols();
