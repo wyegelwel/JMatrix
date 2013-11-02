@@ -25,7 +25,7 @@ public class LUDecomposition {
 	public LUDecomposition decompose(){
 		if (!decomposed()){
 			int n = _A._n;
-			LowerTriangularMatrix L = new LowerTriangularMatrix(SquareMatrix.identity(_A._n));
+			LowerTriangularMatrix L = new LowerTriangularMatrix(SquareMatrix.identity(n));
 			SquareMatrix U = SquareMatrix.copy(_A);
 			Vector p = Vector.range(0, n-1, 1); //n-1 because range is inclusive
 			for (int i = 0; i < n-1; i++){

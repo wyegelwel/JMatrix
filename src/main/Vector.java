@@ -5,7 +5,7 @@ public class Vector extends Matrix {
 	private int _n;
 	
 	/**
-	 * This is a private constructor so that people can't create a vector that 
+	 * This is a private constructor so that one can't create a vector that 
 	 * has 2d, i.e. put it in a bad state
 	 */
 	private Vector(int rows, int cols){

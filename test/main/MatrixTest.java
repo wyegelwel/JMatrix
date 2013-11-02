@@ -11,6 +11,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import enforcers.SquareEnforcer;
+import enforcers.UpperTriangularEnforcer;
+
 public class MatrixTest {
 
 	@BeforeClass

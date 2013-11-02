@@ -1,7 +1,5 @@
 package main;
 
-import utils.Pair;
-
 public class SquareMatrix extends Matrix {
 	protected int _n;
 
