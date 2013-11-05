@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import enforcers.SquareEnforcer;
+import enforcers.SymmetricEnforcer;
 import enforcers.UpperTriangularEnforcer;
 
 public class MatrixTest {
@@ -77,7 +78,7 @@ public class MatrixTest {
 		int rows = 5;
 		int cols = 5;
 		MatrixBuilder b = new MatrixBuilder(rows, cols, enforcers);
-		for (int row = 0; row < rows; rows++){
+		for (int row = 0; row < rows; row++){
 			for (int col = 0; col < cols; col++){
 				b.set(Math.random(), row, col);
 			}
@@ -91,5 +92,36 @@ public class MatrixTest {
 		int rows = 5;
 		int cols = 6;
 		MatrixBuilder b = new MatrixBuilder(rows, cols, enforcers);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testSymmetricEnforcerFail(){
+		List<MatrixEnforcer> enforcers = new ArrayList<MatrixEnforcer>(); 
+		enforcers.add(new SymmetricEnforcer());
+		int rows = 5;
+		int cols = 5;
+		MatrixBuilder b = new MatrixBuilder(rows, cols, enforcers);
+		for (int row = 0; row < rows; row++){
+			for (int col = 0; col < cols; col++){
+				b.set(Math.random(), row, col);
+			}
+		}
+		b.build();
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testSymmetricEnforcer(){
+		List<MatrixEnforcer> enforcers = new ArrayList<MatrixEnforcer>(); 
+		enforcers.add(new SymmetricEnforcer());
+		int rows = 5;
+		int cols = 5;
+		MatrixBuilder b = new MatrixBuilder(rows, cols, enforcers);
+		for (int row = 0; row < rows; row++){
+			for (int col = 0; col <= row; col++){
+				b.set(Math.random(), row, col);
+				b.set(Math.random(), col, row);
+			}
+		}
+		b.build();
 	}
 }

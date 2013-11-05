@@ -21,4 +21,11 @@ public interface MatrixEnforcer {
 	 */
 	public boolean allowableValue(Matrix m, double v, int row, int col);
 	
+	/**
+	 * Called before matrix is built. This can be used for full matrix tests while assuming
+	 * that allowableShape and allowableValue has already been called. 
+	 * @param m
+	 * @return
+	 */
+	public boolean allowablePrebuild(Matrix m);
 }

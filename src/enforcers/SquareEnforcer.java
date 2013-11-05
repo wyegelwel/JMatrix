@@ -18,4 +18,12 @@ public class SquareEnforcer implements MatrixEnforcer{
 		return true;
 	}
 
+	@Override
+	/**
+	 * If allowableShape passed, then the matrix is allowable
+	 */
+	public boolean allowablePrebuild(Matrix m) {
+		return true;
+	}
+
 }

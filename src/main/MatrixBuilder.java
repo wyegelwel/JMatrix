@@ -63,6 +63,12 @@ public class MatrixBuilder {
 	}
 	
 	public Matrix build(){
+		for (MatrixEnforcer e : _enforcers){
+			if (!e.allowablePrebuild(_matrix)){
+				throw new IllegalArgumentException("Enforcer: " + e + " does not" +
+													" allow matrix");
+			}
+		}
 		_isBuilt = true;
 		return _matrix;
 	}

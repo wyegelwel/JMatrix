@@ -9,4 +9,12 @@ public class UpperTriangularEnforcer extends SquareEnforcer{
 		//Allow for essentially zero entries
 		return row >= col || v < Matrix.EQUALITY_EPSILON; 
 	}
+	
+	@Override
+	/**
+	 * If allowableShape and all allowableValue calls passed, then the matrix is allowable
+	 */
+	public boolean allowablePrebuild(Matrix m) {
+		return true;
+	}
 }

@@ -65,6 +65,7 @@ public class Matrix {
 		return toReturn.build();
 	}
 	
+	//TODO: handle matrix properties gracefully
 	/**
 	 * Returns a new matrix that is the transpose of this
 	 * @param m
@@ -129,7 +130,6 @@ public class Matrix {
 	public boolean equals(Object obj) {
 		if (obj instanceof Matrix){
 			Matrix m = (Matrix) obj;
-			//Check if dim
 			if (!dimensionsMatch(m)){
 				return false;
 			}
