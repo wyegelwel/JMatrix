@@ -33,8 +33,26 @@ public class MatrixTest {
 	}
 
 	@Test
+	public void testTransposeSquare(){
+		double[][] d = new double[][]{{ 1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+		double[][] dt = new double[][]{{1, 4, 7}, {2, 5, 8}, {3, 6, 9}};
+		Matrix A = MatrixFactory.create(3, 3, d);
+		Matrix AT = MatrixFactory.create(3, 3, dt);
+		assertTrue(A.transpose().equals(AT));
+	}
+	
+	@Test
+	public void testTransposeRectangular(){
+		double[][] d = new double[][]{{ 1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}};
+		double[][] dt = new double[][]{{1, 4, 7, 10}, {2, 5, 8, 11}, {3, 6, 9, 12}};
+		Matrix A = MatrixFactory.create(4, 3, d);
+		Matrix AT = MatrixFactory.create(3, 4, dt);
+		assertTrue(A.transpose().equals(AT));
+	}
+	
+	@Test
 	public void testMultWithIdentity() {
-		double[][] d1 = new double[][]{{ 1, 2, 3}, {4, 5, 6}, {7, 8, 9}};;
+		double[][] d1 = new double[][]{{ 1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 		Matrix left = MatrixFactory.create(3, 3, d1);
 		Matrix right = SquareMatrix.identity(3);
 		Matrix m = Matrix.mult(left, right);

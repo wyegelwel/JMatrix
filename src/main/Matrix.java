@@ -55,7 +55,7 @@ public class Matrix {
 												"'this' dimensions: " + getSizeString()
 												+" param dimensions: " + m.getSizeString());
 		}
-		MatrixBuilder toReturn = new MatrixBuilder(m.rows(), m.cols());
+		MatrixBuilder toReturn = new MatrixBuilder(rows(), cols());
 		for (int row = 0; row < rows(); row++){
 			for (int col = 0; col < cols(); col++){
 				toReturn.set(get(row,col) + m.get(row,col), row, col);
@@ -65,6 +65,21 @@ public class Matrix {
 		return toReturn.build();
 	}
 	
+	/**
+	 * Returns a new matrix that is the transpose of this
+	 * @param m
+	 * @return
+	 */
+	public Matrix transpose(){
+		MatrixBuilder toReturn = new MatrixBuilder(cols(), rows());
+		for (int row = 0; row < rows(); row++){
+			for (int col = 0; col < cols(); col++){
+				toReturn.set(get(row,col), col, row);
+			}
+		}
+		
+		return toReturn.build();
+	}
 	
 	public double get(int row, int col){
 		return _m[row][col];
