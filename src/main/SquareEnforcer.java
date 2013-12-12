@@ -15,4 +15,12 @@ public class SquareEnforcer implements MatrixEnforcer{
 		return true;
 	}
 
+	@Override
+	/**
+	 * If rows == cols on construction it will not have changed for build
+	 */
+	public boolean allowablePrebuild(Matrix m) {
+		return true;
+	}
+
 }
